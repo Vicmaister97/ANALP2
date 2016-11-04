@@ -15,7 +15,7 @@
 /* constantes */
 
 #ifndef ERR
-  #define ERR 0
+  #define ERR -1
   #define OK (!(ERR))
 #endif
 
@@ -26,5 +26,8 @@ typedef int (* pfunc_ordena)(int*, int, int);
 
 int mergesort(int* tabla, int ip, int iu);
 int merge(int* tabla, int ip, int iu, int imedio);
+int quicksort(int* tabla, int ip, int iu);
+int partir(int* tabla, int ip, int iu, int *pos);
+int medio(int *tabla, int ip, int iu,int *pos);
 
 #endif

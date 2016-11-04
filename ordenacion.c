@@ -119,3 +119,103 @@ int merge(int* tabla, int ip, int iu, int imedio){
 
 	return cont;
 }
+
+/***************************************************/
+/* Funcion: quicksort Fecha: 4/11/2016             */
+/* Autores: Alfonso Villar y Victor Garcia         */
+/*                                                 */
+/* Entrada:   0 <= ip <= iu                        */
+/* int *tabla: Tabla con los numeros               */
+/* int ip: Posicion del primer elemento a ordenar  */
+/* int iu: Posicion del ultimo elemento a ordenar  */
+/*                                                 */
+/* Salida: devuelve el numero de veces que se ha   */
+/* ejecutado la OB si se ha ordenado la tabla o en */
+/* caso de error devuelve ERR                      */
+/***************************************************/
+
+int quicksort(int* tabla, int ip, int iu){
+	int m;
+	int* pos = NULL;
+
+	if (ip > iu)
+		return ERR;
+
+	if (ip == iu)
+		return OK;
+
+	else{
+		m = partir(tabla, ip, iu, pos);
+		if (ip < m-1)
+			quicksort (tabla, ip, m-1);
+		
+		if (m+1 < iu)
+			quicksort (tabla, m+1, iu);
+	}
+
+	return OK;
+}
+
+/***************************************************/
+/* Funcion: partir Fecha: 4/11/2016                */
+/* Autores: Alfonso Villar y Victor Garcia         */
+/*                                                 */
+/* Entrada:   0 <= ip <= iu                        */
+/* int *tabla: Tabla con los numeros               */
+/* int ip: Posicion del primer elemento a ordenar  */
+/* int iu: Posicion del ultimo elemento a ordenar  */
+/*                                                 */
+/* Salida: devuelve el numero de veces que se ha   */
+/* ejecutado la OB si se ha ordenado la tabla o en */
+/* caso de error devuelve ERR                      */
+/***************************************************/
+
+int partir(int* tabla, int ip, int iu,int *pos){
+	int m;
+	int k;
+	int aux;
+	int i;
+
+	m = medio (tabla, ip, iu, pos);
+	k = tabla[m];
+
+	aux = tabla[ip];
+	tabla[ip] = tabla[m];
+	tabla[m] = aux;
+
+	m = ip;
+
+	for (i = ip +1; i <= iu; i++){
+		if (tabla[i] < k){
+			m++;
+			aux = tabla[i];
+	        tabla[i] = tabla[m];
+	        tabla[m] = aux;
+		}
+	}
+
+	aux = tabla[ip];
+	tabla[ip] = tabla[m];
+	tabla[m] = aux;
+
+	return m;
+}
+
+/***************************************************/
+/* Funcion: medio Fecha: 4/11/2016                 */
+/* Autores: Alfonso Villar y Victor Garcia         */
+/*                                                 */
+/* Entrada:   0 <= ip <= iu                        */
+/* int *tabla: Tabla con los numeros               */
+/* int ip: Posicion del primer elemento a ordenar  */
+/* int iu: Posicion del ultimo elemento a ordenar  */
+/*                                                 */
+/* Salida: devuelve el numero de veces que se ha   */
+/* ejecutado la OB si se ha ordenado la tabla o en */
+/* caso de error devuelve ERR                      */
+/***************************************************/
+
+int medio(int *tabla, int ip, int iu,int *pos){
+	pos = ip;
+	return 0;
+}

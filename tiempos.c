@@ -123,7 +123,7 @@ short genera_tiempos_ordenacion(pfunc_ordena metodo, char* fichero,
 		return ERR;
 		}
 
-	free(ptiempo);	
+	free(ptiempo);
 	return OK;
 }
 
