@@ -216,6 +216,55 @@ int partir(int* tabla, int ip, int iu,int *pos){
 /***************************************************/
 
 int medio(int *tabla, int ip, int iu,int *pos){
-	pos = ip;
+	*pos = ip;
 	return 0;
 }
+
+
+/***************************************************/
+/* Funcion: medio_avg Fecha: 4/11/2016             */
+/* Autores: Alfonso Villar y Victor Garcia         */
+/*                                                 */
+/* Entrada:   0 <= ip <= iu                        */
+/* int *tabla: Tabla con los numeros               */
+/* int ip: Posicion del primer elemento a ordenar  */
+/* int iu: Posicion del ultimo elemento a ordenar  */
+/*                                                 */
+/* Salida: devuelve el numero de veces que se ha   */
+/* ejecutado la OB si se ha ordenado la tabla o en */
+/* caso de error devuelve ERR                      */
+/***************************************************/
+
+int medio_avg(int *tabla, int ip, int iu,int *pos){
+	*pos = ip;
+	return (ip+iu)/2;
+}
+
+
+/***************************************************/
+/* Funcion: medio_stat Fecha: 4/11/2016            */
+/* Autores: Alfonso Villar y Victor Garcia         */
+/*                                                 */
+/* Entrada:   0 <= ip <= iu                        */
+/* int *tabla: Tabla con los numeros               */
+/* int ip: Posicion del primer elemento a ordenar  */
+/* int iu: Posicion del ultimo elemento a ordenar  */
+/*                                                 */
+/* Salida: devuelve el numero de veces que se ha   */
+/* ejecutado la OB si se ha ordenado la tabla o en */
+/* caso de error devuelve ERR                      */
+/***************************************************/
+
+int medio_stat(int *tabla, int ip, int iu,int *pos){
+	int m= (int) (ip+iu)/2;
+	if (ip<m) {
+		if (m<iu) return m;
+		else { 
+			if (ip<iu) return iu;
+			return ip;}}
+	else {
+		if (iu<m) return m;
+		else {
+			if (ip<iu) return ip;
+			return iu;}}
+	}
