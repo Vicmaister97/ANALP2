@@ -27,7 +27,13 @@ typedef int (* pfunc_ordena)(int*, int, int);
 int mergesort(int* tabla, int ip, int iu);
 int merge(int* tabla, int ip, int iu, int imedio);
 int quicksort(int* tabla, int ip, int iu);
+int quicksort_stat(int* tabla, int ip, int iu);
+int quicksort_avg(int* tabla, int ip, int iu);
 int partir(int* tabla, int ip, int iu, int *pos);
+int partir_stat(int* tabla, int ip, int iu, int *pos);
+int partir_avg(int* tabla, int ip, int iu, int *pos);
 int medio(int *tabla, int ip, int iu,int *pos);
+int medio_stat(int *tabla, int ip, int iu,int *pos);
+int medio_avg(int *tabla, int ip, int iu,int *pos);
 
 #endif

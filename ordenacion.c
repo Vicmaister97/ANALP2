@@ -136,24 +136,141 @@ int merge(int* tabla, int ip, int iu, int imedio){
 
 int quicksort(int* tabla, int ip, int iu){
 	int m;
-	int* pos = NULL;
+	int *pos = NULL;
+	int ob = 0;
 
-	if (ip > iu)
+	pos = (int *)malloc(sizeof(pos[0]));
+	if (pos == NULL)
 		return ERR;
-
-	if (ip == iu)
-		return OK;
-
-	else{
-		m = partir(tabla, ip, iu, pos);
-		if (ip < m-1)
-			quicksort (tabla, ip, m-1);
-		
-		if (m+1 < iu)
-			quicksort (tabla, m+1, iu);
+	
+	if (ip > iu){
+		free (pos);
+		return ERR;
 	}
 
-	return OK;
+	if (ip == iu){
+		free (pos);
+		return ob;
+	}
+
+	else{
+		ob = partir(tabla, ip, iu, pos);
+		if (ob == ERR){
+			free (pos);
+			return ERR;
+		}
+
+		m = *pos;
+
+		if (ip < m)
+			ob += quicksort (tabla, ip, m-1);
+		if (m+1 < iu)
+			ob += quicksort (tabla, m+1, iu);
+	}
+	free (pos);
+	return ob;
+}
+
+/***************************************************/
+/* Funcion: quicksort Fecha: 4/11/2016             */
+/* Autores: Alfonso Villar y Victor Garcia         */
+/*                                                 */
+/* Entrada:   0 <= ip <= iu                        */
+/* int *tabla: Tabla con los numeros               */
+/* int ip: Posicion del primer elemento a ordenar  */
+/* int iu: Posicion del ultimo elemento a ordenar  */
+/*                                                 */
+/* Salida: devuelve el numero de veces que se ha   */
+/* ejecutado la OB si se ha ordenado la tabla o en */
+/* caso de error devuelve ERR                      */
+/***************************************************/
+
+int quicksort_avg(int* tabla, int ip, int iu){
+	int m;
+	int *pos = NULL;
+	int ob = 0;
+
+	pos = (int *)malloc(sizeof(pos[0]));
+	if (pos == NULL)
+		return ERR;
+	
+	if (ip > iu){
+		free (pos);
+		return ERR;
+	}
+
+	if (ip == iu){
+		free (pos);
+		return ob;
+	}
+
+	else{
+		ob = partir_avg(tabla, ip, iu, pos);
+		if (ob == ERR){
+			free (pos);
+			return ERR;
+		}
+
+		m = *pos;
+
+		if (ip < m)
+			ob += quicksort_avg (tabla, ip, m-1);
+		if (m+1 < iu)
+			ob += quicksort_avg (tabla, m+1, iu);
+	}
+	free (pos);
+	return ob;
+}
+
+/***************************************************/
+/* Funcion: quicksort Fecha: 4/11/2016             */
+/* Autores: Alfonso Villar y Victor Garcia         */
+/*                                                 */
+/* Entrada:   0 <= ip <= iu                        */
+/* int *tabla: Tabla con los numeros               */
+/* int ip: Posicion del primer elemento a ordenar  */
+/* int iu: Posicion del ultimo elemento a ordenar  */
+/*                                                 */
+/* Salida: devuelve el numero de veces que se ha   */
+/* ejecutado la OB si se ha ordenado la tabla o en */
+/* caso de error devuelve ERR                      */
+/***************************************************/
+
+int quicksort_stat(int* tabla, int ip, int iu){
+	int m;
+	int *pos = NULL;
+	int ob = 0;
+
+	pos = (int *)malloc(sizeof(pos[0]));
+	if (pos == NULL)
+		return ERR;
+	
+	if (ip > iu){
+		free (pos);
+		return ERR;
+	}
+
+	if (ip == iu){
+		free (pos);
+		return ob;
+	}
+
+	else{
+		ob = partir_stat(tabla, ip, iu, pos);
+		if (ob == ERR){
+			free (pos);
+			return ERR;
+		}
+
+		m = *pos;
+
+		if (ip < m)
+			ob += quicksort_stat (tabla, ip, m-1);
+		if (m+1 < iu)
+			ob += quicksort_stat (tabla, m+1, iu);
+	}
+	free (pos);
+	return ob;
 }
 
 /***************************************************/
@@ -175,8 +292,13 @@ int partir(int* tabla, int ip, int iu,int *pos){
 	int k;
 	int aux;
 	int i;
+	int ob;
 
-	m = medio (tabla, ip, iu, pos);
+	ob = medio (tabla, ip, iu, pos);
+	if (ob == ERR)
+		return ERR;
+
+	m = *pos;
 	k = tabla[m];
 
 	aux = tabla[ip];
@@ -192,11 +314,123 @@ int partir(int* tabla, int ip, int iu,int *pos){
 	        tabla[i] = tabla[m];
 	        tabla[m] = aux;
 		}
+		ob ++;
 	}
+
+	
+	aux = tabla[ip];
+	tabla[ip] = tabla[m];
+	tabla[m] = aux;
+
+	*pos = m;
+
+	return m;
+}
+
+/***************************************************/
+/* Funcion: partir Fecha: 4/11/2016                */
+/* Autores: Alfonso Villar y Victor Garcia         */
+/*                                                 */
+/* Entrada:   0 <= ip <= iu                        */
+/* int *tabla: Tabla con los numeros               */
+/* int ip: Posicion del primer elemento a ordenar  */
+/* int iu: Posicion del ultimo elemento a ordenar  */
+/*                                                 */
+/* Salida: devuelve el numero de veces que se ha   */
+/* ejecutado la OB si se ha ordenado la tabla o en */
+/* caso de error devuelve ERR                      */
+/***************************************************/
+
+int partir_avg(int* tabla, int ip, int iu,int *pos){
+	int m;
+	int k;
+	int aux;
+	int i;
+	int ob;
+
+	ob = medio_avg (tabla, ip, iu, pos);
+	if (ob == ERR)
+		return ERR;
+
+	m = *pos;
+	k = tabla[m];
 
 	aux = tabla[ip];
 	tabla[ip] = tabla[m];
 	tabla[m] = aux;
+
+	m = ip;
+
+	for (i = ip +1; i <= iu; i++){
+		if (tabla[i] < k){
+			m++;
+			aux = tabla[i];
+	        tabla[i] = tabla[m];
+	        tabla[m] = aux;
+		}
+		ob ++;
+	}
+
+	
+	aux = tabla[ip];
+	tabla[ip] = tabla[m];
+	tabla[m] = aux;
+
+	*pos = m;
+
+	return m;
+}
+
+/***************************************************/
+/* Funcion: partir Fecha: 4/11/2016                */
+/* Autores: Alfonso Villar y Victor Garcia         */
+/*                                                 */
+/* Entrada:   0 <= ip <= iu                        */
+/* int *tabla: Tabla con los numeros               */
+/* int ip: Posicion del primer elemento a ordenar  */
+/* int iu: Posicion del ultimo elemento a ordenar  */
+/*                                                 */
+/* Salida: devuelve el numero de veces que se ha   */
+/* ejecutado la OB si se ha ordenado la tabla o en */
+/* caso de error devuelve ERR                      */
+/***************************************************/
+
+int partir_stat(int* tabla, int ip, int iu,int *pos){
+	int m;
+	int k;
+	int aux;
+	int i;
+	int ob;
+
+	ob = medio_stat (tabla, ip, iu, pos);
+	if (ob == ERR)
+		return ERR;
+
+	m = *pos;
+	k = tabla[m];
+
+	aux = tabla[ip];
+	tabla[ip] = tabla[m];
+	tabla[m] = aux;
+
+	m = ip;
+
+	for (i = ip +1; i <= iu; i++){
+		if (tabla[i] < k){
+			m++;
+			aux = tabla[i];
+	        tabla[i] = tabla[m];
+	        tabla[m] = aux;
+		}
+		ob ++;
+	}
+
+	
+	aux = tabla[ip];
+	tabla[ip] = tabla[m];
+	tabla[m] = aux;
+
+	*pos = m;
 
 	return m;
 }
@@ -237,7 +471,7 @@ int medio(int *tabla, int ip, int iu,int *pos){
 
 int medio_avg(int *tabla, int ip, int iu,int *pos){
 	*pos = ip;
-	return (ip+iu)/2;
+	return (int) (ip+iu)/2;
 }
 
 
@@ -256,15 +490,31 @@ int medio_avg(int *tabla, int ip, int iu,int *pos){
 /***************************************************/
 
 int medio_stat(int *tabla, int ip, int iu,int *pos){
-	int m= (int) (ip+iu)/2;
-	if (ip<m) {
-		if (m<iu) return m;
+	int m = (int) (ip+iu)/2;
+	if (ip < m) {
+		if (m < iu){
+			*pos = m;
+			return m;
+		}
 		else { 
-			if (ip<iu) return iu;
-			return ip;}}
+			if (ip < iu){
+				*pos = iu;
+				return iu;
+			}
+			*pos = ip;
+			return ip;
+		}}
 	else {
-		if (iu<m) return m;
+		if (iu < m){
+			*pos = m;
+			return m;
+		}
 		else {
-			if (ip<iu) return ip;
-			return iu;}}
+			if (ip < iu){
+				*pos = ip;
+				return ip;
+			}
+			*pos = iu;
+			return iu;
+		}}
 	}

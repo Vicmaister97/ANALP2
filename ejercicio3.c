@@ -1,8 +1,8 @@
 /**************************************************/
-/* Programa: ejercicio1       Fecha: 12/12/2016   */
+/* Programa: ejercicio3       Fecha: 10/11/2016   */
 /* Autores:Alfonso Villar                         */
 /*         Victor Garcia                          */
-/* Programa que Comprueba MergeSort               */
+/* Programa que comprueba QuickSort               */
 /*                                                */
 /* Entrada: Linea de comandos                     */
 /* -tamanio: numero elementos permutacion         */
@@ -48,9 +48,7 @@ int main(int argc, char** argv)
     printf("Error: No hay memoria\n");
     exit(-1);
   }
-
-  printf ("%d\n", perm[0]);
-
+  
   ret = quicksort(perm, 0, tamano-1);
 
   if (ret == ERR) {

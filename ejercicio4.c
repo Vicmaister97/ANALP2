@@ -1,11 +1,11 @@
 /***********************************************************/
-/* Programa: P2_2                  Fecha: 10/11/2016       */
+/* Programa: P2_4                  Fecha: 10/11/2016       */
 /* Autores: Alfonso Villar                                 */
 /*          Victor Garcia                                  */
 /* Programa que escribe en un fichero                      */
 /* el tiempo promedio de ejecucion, maximo, minimo y       */
 /* promedio de operaciones basicas del algoritmo de        */
-/* ordenacion Mergesort                                    */
+/* ordenacion Quicksort                                    */
 /*                                                         */
 /* Entrada: Linea de comandos                              */
 /* -num_min: numero minimo de elementos de la tabla        */
@@ -16,6 +16,7 @@
 /* Salida: 0 si hubo error                                 */
 /* -1 en caso contrario                                    */
 /***********************************************************/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -44,7 +45,7 @@ int main(int argc, char** argv)
     exit(-1);
   }
 
-  printf("Practica numero 2, apartado 2\n");
+  printf("Practica numero 2, apartado 4\n");
   printf("Realizada por: Alfonso Villar y Victor Garcia\n");
   printf("Grupo: 12\n");
 
@@ -66,7 +67,7 @@ int main(int argc, char** argv)
   }
 
   /* calculamos los tiempos */
-  ret = genera_tiempos_ordenacion(mergesort, nombre, num_min, num_max,incr, n_perms);
+  ret = genera_tiempos_ordenacion(quicksort, nombre, num_min, num_max, incr, n_perms);
   if (ret == ERR) { /* ERR_TIME debera ser un numero negativo */
     printf("Error en la funcion Time_Ordena\n");
     exit(-1);
